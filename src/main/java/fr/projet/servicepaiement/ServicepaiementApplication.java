@@ -1,0 +1,13 @@
+package fr.projet.servicepaiement;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ServicepaiementApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ServicepaiementApplication.class, args);
+	}
+
+}
