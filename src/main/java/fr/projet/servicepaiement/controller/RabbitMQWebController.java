@@ -18,14 +18,14 @@ public class RabbitMQWebController {
 	@Autowired
 	private AmqpTemplate amqpTemplate;
 	
-	// Routing vers /servicepaiement-rabbitmq/paiement
+	// Routage sur "/servicepaiement-rabbitmq/paiement?id=id&montant=montant"
 	@GetMapping(value = "/paiement")
-	public String producer(@RequestParam("id") int id, @RequestParam("montant") long montant, @RequestParam("timestamp") LocalDateTime timestamp) {
+	public String producer(@RequestParam("id") int id, @RequestParam("montant") long montant) {
 		Paiement pay= new Paiement();
 		pay.setId(id);
 		pay.setMontant(montant);
 		pay.setTimestamp(LocalDateTime.now());
-		amqpTemplate.convertAndSend(pay);
+		amqpTemplate.convertAndSend("javainuseExchange", "javainuse", pay);
 		return "Le message a été envoyé avec succès à RabbitMQ";
 	}
 }
