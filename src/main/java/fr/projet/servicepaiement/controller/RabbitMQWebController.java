@@ -20,7 +20,7 @@ public class RabbitMQWebController {
 	
 	// Routage sur "/servicepaiement-rabbitmq/paiement?id=id&montant=montant"
 	@GetMapping(value = "/paiement")
-	public String producer(@RequestParam("id") int id, @RequestParam("montant") long montant) {
+	public String paiement(@RequestParam("id") int id, @RequestParam("montant") long montant) {
 		Paiement pay= new Paiement();
 		pay.setId(id);
 		pay.setMontant(montant);
