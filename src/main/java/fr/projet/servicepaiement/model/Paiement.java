@@ -1,7 +1,5 @@
 package fr.projet.servicepaiement.model;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -9,21 +7,15 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Paiement {
 	
 	private int id;
-	private long montant;
-	private LocalDateTime timestamp;
-	private enum state {
-		PENDING, ACCEPTED, VALIDATED
-	}
-	private state etat;
+	private long amount;
+
 
 	// Constructeur
 	
-	public Paiement(int id, long montant, LocalDateTime timestamp, state etat) {
+	public Paiement(int id, long amount) {
 		super();
 		this.id = id;
-		this.montant = montant;
-		this.timestamp = timestamp;
-		this.etat = etat;
+		this.amount = amount;
 	}
 	
 	public Paiement() {
@@ -38,30 +30,19 @@ public class Paiement {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public long getMontant() {
-		return montant;
+	public long getAmount() {
+		return amount;
 	}
-	public void setMontant(long montant) {
-		this.montant = montant;
+	public void setAmount(long amount) {
+		this.amount = amount;
 	}
-	public LocalDateTime getTimestamp() {
-		return timestamp;
-	}
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
-	}
-	public state getEtat() {
-		return etat;
-	}
-	public void setEtat(state etat) {
-		this.etat = etat;
-	}
+
 	
 	// Méthodes
 
 	@Override
 	public String toString() {
-		return "Paiement [id=" + id + ", montant=" + montant + ", timestamp=" + timestamp + ", etat=" + etat + "]";
+		return "Paiement [id=" + id + ", amount=" + amount + "]";
 	};
 	
 }
