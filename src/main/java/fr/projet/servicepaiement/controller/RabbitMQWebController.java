@@ -1,5 +1,7 @@
 package fr.projet.servicepaiement.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +28,8 @@ public class RabbitMQWebController {
 				 consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 				 produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<Paiement> paiement(@RequestBody Paiement pay) {
+		
+		pay.setTimestamp(LocalDateTime.now());
 		
 		// Conversion et envoi au broker de messages via Interface AMQP (RabbitMQ)
 		amqpTemplate.convertAndSend("servicepaiement.exchange","servicepaiement.routingkey",pay);
