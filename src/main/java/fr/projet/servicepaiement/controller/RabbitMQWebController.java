@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.projet.servicepaiement.model.Paiement;
 
-// Point d'entrée : http://localhost:8080//servicepaiement-rabbitmq/paiement/
+// Point d'entrée pour le front : http://localhost:8080//servicepaiement-rabbitmq/paiement/
 
 @RestController
 @RequestMapping(value = "/servicepaiement-rabbitmq/")
@@ -27,8 +27,8 @@ public class RabbitMQWebController {
 				 produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<Paiement> paiement(@RequestBody Paiement pay) {
 		
-		// Conversion et envoi via Interface AMQP (RabbitMQ)
-		amqpTemplate.convertAndSend(pay);
+		// Conversion et envoi au broker de messages via Interface AMQP (RabbitMQ)
+		amqpTemplate.convertAndSend("servicepaiement.exchange","servicepaiement.routingkey",pay);
 		
 		// Retour de la réponse pour passé le paiement de "Pending" en "ACCEPTED" via le code 200 et récupération en front du timestamp grâce à la réponse HTTP.
 		return ResponseEntity.accepted().body(pay);
